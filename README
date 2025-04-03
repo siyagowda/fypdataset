@@ -1,0 +1,31 @@
+Dataset Creation
+
+1. scraper:
+  a. add suno playlist links to suno_links.txt (currently manual)
+  b. run suno_scraper.py with suno music downloader open
+  c. add udio song links to udio_links.txt by running udio_scraper.js in udio console
+
+2. cleaning (suno only):
+  a. run mass_migration.py
+  b. run duplicates.py
+  c. run renaming.py
+
+3. normalisation:
+  a. samping_rate.py
+  b. cutting.py
+
+4. analysis
+
+5. data augementation:
+  a. pitch shifting
+  b. tempo shifting
+  c. combine
+
+6. normalisation:
+  a. samping_rate.py
+  b. cutting.py
+  
+7. analysis
+
+
+count.py is used to count number of files in a directory
