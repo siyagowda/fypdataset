@@ -58,10 +58,12 @@ def analyze_audio_file(file_path):
     spectral_bandwidth = calculate_spectral_bandwidth(y, sr)
     zcr = calculate_zero_crossing_rate(y)
     rms_energy = calculate_rms_energy(y)
+
+    file_name = os.path.basename(file_path)
     
     # Return the results as a dictionary
     return {
-        'file': file_path,
+        'file': file_name,
         'rhythmic_entropy': rhythmic_entropy,
         'melodic_range': melodic_range,
         'hnr': hnr,
@@ -87,11 +89,12 @@ def analyze_dataset(dataset_folder):
     return df
 
 # Example usage:
-dataset_folder = 'path_to_your_dataset_folder'  # Replace with your folder path
+dataset_folder = '/vol/bitbucket/sg2121/fypdataset/dataset/hello'  # Replace with your folder path
 df = analyze_dataset(dataset_folder)
 print(df)
+df.to_csv("test_output.csv", index=False)
 
 # Optional: Calculate average values for each feature
-average_values = df.mean()
+average_values = df.select_dtypes(include=[np.number]).mean()
 print("Average values for each feature:")
 print(average_values)
