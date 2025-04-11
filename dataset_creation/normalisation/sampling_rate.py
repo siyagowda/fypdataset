@@ -2,6 +2,7 @@ from pydub import AudioSegment
 import librosa
 import numpy as np
 import soundfile as sf
+import os
 
 def resample_and_normalize(input_file, output_file, target_sample_rate=24000):
     # Load the MP3 file using pydub
@@ -29,6 +30,29 @@ def resample_and_normalize(input_file, output_file, target_sample_rate=24000):
 
     print(f"Resampled and normalized audio saved to {output_file}")
 
-input_file = '/vol/bitbucket/sg2121/fypdataset/dataset/test/S1803R.mp3'  
-output_file = '/vol/bitbucket/sg2121/fypdataset/dataset/test/S1803RN1.mp3'
-resample_and_normalize(input_file, output_file, target_sample_rate=24000)
+def process_files_in_folder(input_folder, output_folder, target_sample_rate=24000):
+    print("HELLO")
+    # List all MP3 files in the folder
+    audio_files = [f for f in os.listdir(input_folder) if f.endswith('.mp3')]
+    print(len(audio_files))
+    # Ensure the output folder exists
+    os.makedirs(output_folder, exist_ok=True)
+    print(2)
+    for audio_file in audio_files:
+        
+        input_file = os.path.join(input_folder, audio_file)
+        
+        # Create the output file name by appending '_norm' to the original file name
+        base_name = os.path.splitext(audio_file)[0]  # Remove the extension
+        output_file = os.path.join(output_folder, f"{base_name}N.mp3")  # Add '_norm' to the file name
+        
+        # Resample and normalize each file
+        resample_and_normalize(input_file, output_file, target_sample_rate)
+
+# Example usage:
+input_folder = '/data/sg2121/fypdataset/dataset/scp_data/test'  # Replace with your input folder path
+output_folder = '/data/sg2121/fypdataset/dataset/normal_data'  # Replace with your output folder path
+
+# Process all files in the folder
+process_files_in_folder(input_folder, output_folder, target_sample_rate=24000)
+
