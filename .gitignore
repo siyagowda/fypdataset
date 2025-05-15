@@ -179,5 +179,8 @@ cython_debug/
 # git cannot handle the power of music
 dataset
 dataset/
+dataset_large
+dataset_large/
 .mp3
-.wav
+*.wav
+/2stems/
