@@ -30,29 +30,43 @@ def resample_and_normalize(input_file, output_file, target_sample_rate=24000):
 
     print(f"Resampled and normalized audio saved to {output_file}")
 
+import os
+
 def process_files_in_folder(input_folder, output_folder, target_sample_rate=24000):
     print("HELLO")
+
     # List all MP3 files in the folder
     audio_files = [f for f in os.listdir(input_folder) if f.endswith('.mp3')]
     print(len(audio_files))
+
     # Ensure the output folder exists
     os.makedirs(output_folder, exist_ok=True)
-    print(2)
+
     for audio_file in audio_files:
-        
-        input_file = os.path.join(input_folder, audio_file)
-        
-        # Create the output file name by appending '_norm' to the original file name
-        base_name = os.path.splitext(audio_file)[0]  # Remove the extension
-        output_file = os.path.join(output_folder, f"{base_name}N.mp3")  # Add '_norm' to the file name
-        
-        # Resample and normalize each file
-        resample_and_normalize(input_file, output_file, target_sample_rate)
+        try:
+            base_name = os.path.splitext(audio_file)[0]
+            output_file = os.path.join(output_folder, f"{base_name}N.mp3")
+
+            # Skip if the output file already exists
+            if os.path.exists(output_file):
+                print(f"Skipping '{audio_file}': output file already exists.")
+                continue
+
+            input_file = os.path.join(input_folder, audio_file)
+
+            # Resample and normalize each file
+            resample_and_normalize(input_file, output_file, target_sample_rate)
+
+        except Exception as e:
+            print(f"Error processing file '{audio_file}': {e}")
+
+
 
 # Example usage:
-input_folder = '/data/sg2121/fypdataset/dataset/scp_data/test'  # Replace with your input folder path
-output_folder = '/data/sg2121/fypdataset/dataset/normal_data'  # Replace with your output folder path
+input_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/raw/human'  # Replace with your input folder path
+output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/human'  # Replace with your output folder path
 
 # Process all files in the folder
 process_files_in_folder(input_folder, output_folder, target_sample_rate=24000)
+
 
