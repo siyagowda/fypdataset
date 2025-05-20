@@ -2,6 +2,7 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
+import parselmouth
 
 def calculate_rhythmic_entropy(y, sr):
     # Onset detection
@@ -26,9 +27,12 @@ def calculate_melodic_range(y, sr):
     return pitch_range
 
 def calculate_hnr(y, sr):
-    # Calculate Harmonic-to-Noise Ratio (HNR)
-    hnr = librosa.effects.harmonic(y) / librosa.effects.percussive(y)
-    return np.mean(hnr)
+    # Convert waveform to a Parselmouth Sound object
+    sound = parselmouth.Sound(y, sr)
+    # Extract harmonicity object (HNR)
+    harmonicity = sound.to_harmonicity_cc()
+    # Return the mean HNR (in dB)
+    return harmonicity.values[harmonicity.values != -200].mean()
 
 def calculate_spectral_centroid(y, sr):
     centroid = librosa.feature.spectral_centroid(y=y, sr=sr)
