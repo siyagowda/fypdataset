@@ -1,0 +1,18 @@
+jupyter==1.1.1
+librosa==0.11.0
+matplotlib==3.10.3
+notebook==7.4.2
+numpy==2.2.4
+openai-whisper==20240930
+pandas==2.2.3
+praat-parselmouth==0.4.5
+pydub==0.25.1
+pyspellchecker==0.8.3
+regex==2024.11.6
+scikit-learn==1.6.1
+scipy== 1.15.2
+soundfile==0.13.1
+sympy==1.14.0
+torch==2.7.0
+torchaudio==2.7.0
+tqdm==4.67.1

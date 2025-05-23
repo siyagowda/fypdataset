@@ -11,21 +11,22 @@ Dataset Creation
   c. run renaming.py
 
 3. normalisation:
-  a. samping_rate.py
-  b. cutting.py
+  a. sampling_rate.py (on all files)
+  b. cutting.py (on ai files)
+  c. padding.py (on human files)
 
 4. analysis
 
-5. data augementation:
-  a. pitch shifting
-  b. tempo shifting
-  c. combine
+5. feature extraction:
+  a. lyric_splitting/lyric_transcriber.py
+  b. feature_extraction.py (for cnn models)
+  c. audio_to_pt.py (for cnn-transformer models)
 
-6. normalisation:
-  a. samping_rate.py
-  b. cutting.py
-  
-7. analysis
+6. data augementation:
+  a. data_augmentation.py (for ai files)
+
+7. analysis on ai aug files (if you want)
 
 
 count.py is used to count number of files in a directory
+requirements.txt has most of the packages but maybe not all
