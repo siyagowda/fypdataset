@@ -37,7 +37,7 @@ def extract_features(file_path, mp3_file, sr=22050, n_mfcc=13, output_dir="featu
         'MFCC': mfcc,
         'CQT': cqt,
         'Chromagram': chroma,
-        'PLP': plp
+        #'PLP': plp
     }
     
     # Plot and save each feature as an image
@@ -88,14 +88,17 @@ def extract_mel_spectrogram(file_path, output_dir="features/human/Mel_Spectrogra
     print(f"Saved Mel Spectrogram: {output_path}")
     plt.close()
 
-folder_path = "/data/sg2121/fypdataset/dataset/normal_data/human"
+folder_path = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/augmented_ai"
 mp3_files = [f for f in os.listdir(folder_path) if f.endswith(".mp3")]
 
 # Process each file
 for mp3_file in mp3_files:
     file_path = os.path.join(folder_path, mp3_file)
     print(f"Processing {file_path}...")
-    extract_mel_spectrogram(file_path)
-    #extract_features(file_path, mp3_file, output_dir="features")
+    #extract_mel_spectrogram(file_path)
+    try:
+        extract_features(file_path, mp3_file, output_dir="/vol/bitbucket/sg2121/fypdataset/dataset_large2/features/ai_aug")
+    except Exception as e:
+        print(f"Error processing '{file_path}': {e}")
     
 
