@@ -51,6 +51,6 @@ def process_folder(input_folder, output_folder):
             input_file = os.path.join(input_folder, file_name)
             cut_mp3(input_file, output_folder)
 
-input_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/ai'  
-output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/ai_segments'
+input_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai'  
+output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai_segments'
 process_folder(input_folder, output_folder)

@@ -44,19 +44,17 @@ def extract_plp_from_mp3(file_path, sr=16000, n_ceps=13, winlen=0.025, winstep=0
     y, sr = librosa.load(file_path, sr=sr, mono=True)
     
     # Get PLP coefficients using python_speech_features
-    # First we need to get filterbank energies
     fbank_feat = base.fbank(y, samplerate=sr, winlen=winlen, winstep=winstep,
                           nfilt=nfilt, nfft=nfft, lowfreq=lowfreq, highfreq=highfreq,
                           preemph=preemph)
     
-    # Then apply PLP-like processing
     # 1. Get filter bank energies
     fb_energies = fbank_feat[0]
     
-    # 2. Apply equal-loudness curve and cubic-root compression (simplified PLP)
+    # 2. Apply equal-loudness curve and cubic-root compression 
     loudness_fb = np.power(fb_energies, 0.33)  # Cube root compression
     
-    # 3. Apply DCT (similar to MFCC computation)
+    # 3. Apply DCT 
     plp_coeffs = dct(loudness_fb, type=2, axis=1, norm='ortho')[:, :n_ceps]
     
     return plp_coeffs
@@ -109,7 +107,6 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
     # Process each MP3 file
     print(f"Processing {len(mp3_files)} MP3 files...")
     
-    # Create tqdm instance with clear output formatting
     progress_bar = tqdm(mp3_files, desc="Generating PLP plots", ncols=100)
     
     # Log file for detailed output
@@ -131,7 +128,6 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
                 plot_path = os.path.join(output_dir, f"{base_name}_plp.png")
                 plot_plp_coefficients(plp_features, plot_path)
                 
-                # Update progress bar description instead of printing
                 progress_bar.set_postfix_str(f"Processed: {mp3_file}")
                 
                 # Write to log file instead of printing to console
@@ -147,4 +143,4 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
     print(f"Processing complete. PLP plots saved to {output_dir}")
     print(f"Detailed processing log saved to {log_path}")
 
-save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/augmented_ai', '/vol/bitbucket/sg2121/fypdataset/dataset_large2/features/ai_aug/PLP')
+save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human', '/vol/bitbucket/sg2121/fypdataset/test_dataset/features/human/PLP')

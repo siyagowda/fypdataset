@@ -12,7 +12,7 @@ def extract_features(file_path, mp3_file, sr=22050, n_mfcc=13, output_dir="featu
     mel_spectrogram = librosa.feature.melspectrogram(y=y, sr=sr)
     mel_spectrogram_db = librosa.power_to_db(mel_spectrogram, ref=np.max)
 
-    # 2. MFCC (Mel-Frequency Cepstral Coefficients)
+    # 2. MFCC (Mel-Frequency Cepstral
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc)
 
     # 3. CQT (Constant-Q Transform)
@@ -21,10 +21,10 @@ def extract_features(file_path, mp3_file, sr=22050, n_mfcc=13, output_dir="featu
     # 5. Chromagram
     chroma = librosa.feature.chroma_stft(y=y, sr=sr)
 
-    # 6. PLP (Perceptual Linear Prediction) - using MFCC with htk=True
+    # 6. PLP (Perceptual Linear Prediction)
     plp = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc, htk=True)
 
-    # Extract the base name of the mp3 file (without extension)
+    # Extract the base name of the mp3 file 
     base_filename = os.path.basename(file_path).replace('.mp3', '')
     
     # Create output directory if it doesn't exist
@@ -88,7 +88,7 @@ def extract_mel_spectrogram(file_path, output_dir="features/human/Mel_Spectrogra
     print(f"Saved Mel Spectrogram: {output_path}")
     plt.close()
 
-folder_path = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/augmented_ai"
+folder_path = "/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human"
 mp3_files = [f for f in os.listdir(folder_path) if f.endswith(".mp3")]
 
 # Process each file
@@ -97,7 +97,7 @@ for mp3_file in mp3_files:
     print(f"Processing {file_path}...")
     #extract_mel_spectrogram(file_path)
     try:
-        extract_features(file_path, mp3_file, output_dir="/vol/bitbucket/sg2121/fypdataset/dataset_large2/features/ai_aug")
+        extract_features(file_path, mp3_file, output_dir="/vol/bitbucket/sg2121/fypdataset/test_dataset/features/human")
     except Exception as e:
         print(f"Error processing '{file_path}': {e}")
     

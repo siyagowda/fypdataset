@@ -3,17 +3,17 @@ import torch
 from pathlib import Path
 
 # Settings
-input_dir = Path("/data/sg2121/fypdataset/dataset_large/normal_data/ai_segments")
-output_dir = Path("/data/sg2121/fypdataset/dataset_large/lyrics/ai")
+input_dir = Path("/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human")
+output_dir = Path("/vol/bitbucket/sg2121/fypdataset/test_dataset/lyrics/human")
 
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# Load Whisper model (auto uses GPU if available)
+# Load Whisper model
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = whisper.load_model("base", device=device)
 
 # Loop through audio files
-for audio_path in input_dir.glob("*.*"):  # supports .wav, .mp3, etc.
+for audio_path in input_dir.glob("*.*"):  
     output_path = output_dir / f"{audio_path.stem}_lyrics.txt"
 
     # Skip if already transcribed

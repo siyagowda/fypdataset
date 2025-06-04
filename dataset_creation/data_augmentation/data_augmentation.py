@@ -50,8 +50,8 @@ def augment_and_save_dataset(dataset_folder, output_folder):
         y, sr = librosa.load(file_path, sr=None)
         
         # Apply time stretching and pitch shifting
-        y_stretched = apply_time_stretch(y, sr=sr, rate=0.8)  # Example: Slow down by 20%
-        y_shifted = apply_pitch_shift(y, sr, n_steps=5)  # Example: Shift up by 5 semitones
+        y_stretched = apply_time_stretch(y, sr=sr, rate=0.8)  
+        y_shifted = apply_pitch_shift(y, sr, n_steps=5) 
         
         # Prepare file names for saving
         base_name = os.path.splitext(audio_file)[0]
@@ -94,8 +94,8 @@ def random_augment_and_save_dataset(dataset_folder, output_folder):
             print(f"Error processing '{audio_file}': {e}")
 
 # Example usage:
-dataset_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/ai_segments'  # Replace with your folder path
-output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/augmented_ai'  # Replace with your output folder path
+dataset_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai_segments'  
+output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/augmented_ai'  
 
 # Create output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)

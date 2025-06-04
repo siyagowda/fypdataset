@@ -37,13 +37,12 @@ def analyze_dataset(dataset_folder):
     df = pd.DataFrame(results)
     return df
 
-# Example usage:
-dataset_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/human'  # Replace with your folder path
+dataset_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai_segments'  # Replace with your folder path
 df = analyze_dataset(dataset_folder)
 print(df)
 #df.to_csv("test_output.csv", index=False)
 
-# Optional: Calculate average values for each feature
+# Calculate average values for each feature
 average_values = df.select_dtypes(include=[np.number]).mean()
 print("Average values for each feature:")
 print(average_values)

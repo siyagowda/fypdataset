@@ -2,7 +2,6 @@ import os
 
 # Directories
 source_dir = "C://Users//sg16g//Music//dataset//suno" 
-# You can choose to either rename files in source or destination folder.
 
 # File counter for renaming
 count = 1
@@ -12,7 +11,7 @@ for root, _, files in os.walk(source_dir):
 
     for file in files:
         ext = os.path.splitext(file)[1]  # Get file extension
-        new_name = f"S{count:02d}R{ext}"  # Rename to "song count.extension"
+        new_name = f"S{count:02d}R{ext}"
         old_path = os.path.join(root, file)
         new_path = os.path.join(root, new_name)
 

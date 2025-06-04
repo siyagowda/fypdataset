@@ -12,7 +12,7 @@ def resample_and_normalize(input_file, output_file, target_sample_rate=24000):
     audio_resampled = audio.set_frame_rate(target_sample_rate)
 
     # Export the resampled audio to a temporary WAV file
-    temp_wav = "temp_resampled.wav"
+    temp_wav = "temp_resampled3.wav"
     audio_resampled.export(temp_wav, format="wav")
 
     # Load the WAV file using librosa for normalization
@@ -36,7 +36,7 @@ def process_files_in_folder(input_folder, output_folder, target_sample_rate=2400
     print("HELLO")
 
     # List all MP3 files in the folder
-    audio_files = [f for f in os.listdir(input_folder) if f.endswith('.mp3')]
+    audio_files = [f for f in os.listdir(input_folder) if f.endswith('.wav')]
     print(len(audio_files))
 
     # Ensure the output folder exists
@@ -61,10 +61,8 @@ def process_files_in_folder(input_folder, output_folder, target_sample_rate=2400
             print(f"Error processing file '{audio_file}': {e}")
 
 
-
-# Example usage:
-input_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/raw/human'  # Replace with your input folder path
-output_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/human'  # Replace with your output folder path
+input_folder = '/vol/bitbucket/sg2121/fypdataset/test_dataset/raw/human'  
+output_folder = '/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human'  
 
 # Process all files in the folder
 process_files_in_folder(input_folder, output_folder, target_sample_rate=24000)

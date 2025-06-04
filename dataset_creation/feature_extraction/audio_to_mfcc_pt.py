@@ -4,14 +4,12 @@ import torchaudio.transforms as T
 import torch
 from tqdm import tqdm
 
-# === Configuration ===
-input_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data"  # Folder with mp3 files organized in subfolders (e.g., ai/, human/)
-output_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/tensors"     # Where to save .pt files
+input_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data"  
+output_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/tensors"     
 target_sr = 22050
-n_mfcc = 40                        # Number of MFCCs to keep (commonly 13 or 40)
+n_mfcc = 40                        # Number of MFCCs to keep
 target_width = 256                # Time dimension (pad or crop to this width)
 
-# === Transformations ===
 resample = T.Resample(orig_freq=44100, new_freq=target_sr)
 mfcc_transform = T.MFCC(
     sample_rate=target_sr,
@@ -25,7 +23,6 @@ mfcc_transform = T.MFCC(
     },
 )
 
-# === Core processing function ===
 def process_and_save(input_path, output_path):
     waveform, sr = torchaudio.load(input_path)
 
@@ -52,7 +49,6 @@ def process_and_save(input_path, output_path):
     # Save as .pt file
     torch.save(mfcc, output_path)
 
-# === Walk through dataset folders ===
 for label in os.listdir(input_dir):
     label_dir = os.path.join(input_dir, label)
     if not os.path.isdir(label_dir):

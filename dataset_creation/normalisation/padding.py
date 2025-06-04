@@ -34,6 +34,5 @@ def process_folder(input_folder):
 
     print(f"{count} files padded to 30 seconds")
 
-# Update this to your folder path
-input_folder = '/vol/bitbucket/sg2121/fypdataset/dataset_large/normal_data/human'
+input_folder = '/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human'
 process_folder(input_folder)

@@ -4,19 +4,16 @@ import torchaudio.transforms as T
 import torch
 from tqdm import tqdm
 
-# === Configuration ===
-input_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data"             # Folder with mp3 files organized in subfolders (e.g., ai/, human/)
-output_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/tensors"      # Where to save .pt files
+input_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data"  
+output_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/tensors"    
 target_sr = 22050                     # Sample rate for resampling
 n_mels = 128                          # Mel bands
-target_width = 256                   # Time dimension (pad or crop to this width)
+target_width = 256                   # Time dimension 
 
-# === Transformations ===
 resample = T.Resample(orig_freq=44100, new_freq=target_sr)
 mel_spec = T.MelSpectrogram(sample_rate=target_sr, n_fft=1024, hop_length=512, n_mels=n_mels)
 to_db = T.AmplitudeToDB(top_db=80)
 
-# === Core processing function ===
 def process_and_save(input_path, output_path):
     waveform, sr = torchaudio.load(input_path)
 
@@ -44,7 +41,6 @@ def process_and_save(input_path, output_path):
     # Save as .pt file
     torch.save(mel_db, output_path)
 
-# === Walk through dataset folders ===
 for label in os.listdir(input_dir):
     label_dir = os.path.join(input_dir, label)
     if not os.path.isdir(label_dir):
