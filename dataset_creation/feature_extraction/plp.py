@@ -6,6 +6,7 @@ from scipy.fftpack import dct
 import matplotlib.pyplot as plt
 import argparse
 from tqdm import tqdm
+import time
 
 def extract_plp_from_mp3(file_path, sr=16000, n_ceps=13, winlen=0.025, winstep=0.01, 
                          nfilt=26, nfft=512, lowfreq=0, highfreq=None, preemph=0.97):
@@ -111,6 +112,9 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
     
     # Log file for detailed output
     log_path = os.path.join(output_dir, "processing_log.txt")
+    total_time = 0.0
+    file_count = 0
+    
     with open(log_path, 'w') as log_file:
         for mp3_file in progress_bar:
             # Construct full input path
@@ -121,6 +125,8 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
             
             # Extract PLP coefficients and save plot
             try:
+                start_time = time.time()
+                
                 # Extract PLP coefficients
                 plp_features = extract_plp_from_mp3(input_path, n_ceps=n_ceps)
                 
@@ -132,6 +138,9 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
                 
                 # Write to log file instead of printing to console
                 log_file.write(f"Saved plot for {mp3_file}\n")
+                elapsed = time.time() - start_time
+                total_time += elapsed
+                file_count += 1
                 
             except Exception as e:
                 error_msg = f"Error processing {mp3_file}: {str(e)}"
@@ -143,4 +152,18 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
     print(f"Processing complete. PLP plots saved to {output_dir}")
     print(f"Detailed processing log saved to {log_path}")
 
-save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data/human', '/vol/bitbucket/sg2121/fypdataset/test_dataset/features/human/PLP')
+    return total_time, file_count
+
+total_time, file_count = save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai', '/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai/PLP')
+
+timing_output_file = os.path.join('/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai/PLP', "plp_avg_time.txt")
+
+if file_count > 0:
+    avg_time = total_time / file_count
+    with open(timing_output_file, "w") as f:
+        f.write(f"Processed {file_count} files\n")
+        f.write(f"Total processing time: {total_time:.4f} seconds\n")
+        f.write(f"Average time per file: {avg_time:.6f} seconds\n")
+    print(f"Average processing time saved to: {timing_output_file}")
+else:
+    print("No files were processed.")

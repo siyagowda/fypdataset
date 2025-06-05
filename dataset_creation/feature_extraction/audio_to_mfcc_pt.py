@@ -3,9 +3,11 @@ import torchaudio
 import torchaudio.transforms as T
 import torch
 from tqdm import tqdm
+import time
 
-input_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/normal_data"  
-output_dir = "/vol/bitbucket/sg2121/fypdataset/test_dataset/tensors"     
+input_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data"  
+output_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_timing/tensors" 
+timing_output_file = os.path.join(output_dir, "mfcc_avg_time.txt")   
 target_sr = 22050
 n_mfcc = 40                        # Number of MFCCs to keep
 target_width = 256                # Time dimension (pad or crop to this width)
@@ -49,6 +51,9 @@ def process_and_save(input_path, output_path):
     # Save as .pt file
     torch.save(mfcc, output_path)
 
+total_time = 0.0
+file_count = 0
+
 for label in os.listdir(input_dir):
     label_dir = os.path.join(input_dir, label)
     if not os.path.isdir(label_dir):
@@ -67,6 +72,20 @@ for label in os.listdir(input_dir):
                 continue
 
             try:
+                start_time = time.time()
                 process_and_save(input_path, output_path)
+                elapsed = time.time() - start_time
+                total_time += elapsed
+                file_count += 1
             except Exception as e:
-                print(f"⚠️ Failed {file}: {e}")
+                print(f"Failed {file}: {e}")
+
+if file_count > 0:
+    avg_time = total_time / file_count
+    with open(timing_output_file, "w") as f:
+        f.write(f"Processed {file_count} files\n")
+        f.write(f"Total processing time: {total_time:.4f} seconds\n")
+        f.write(f"Average time per file: {avg_time:.6f} seconds\n")
+    print(f"Average processing time saved to: {timing_output_file}")
+else:
+    print("No files were processed.")
