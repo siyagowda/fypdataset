@@ -1,0 +1,3 @@
+Device used: cuda
+Transcribed 14149 files
+Average transcription time: 0.7849 seconds

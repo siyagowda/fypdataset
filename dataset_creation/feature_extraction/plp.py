@@ -154,7 +154,7 @@ def save_plp_plots_from_mp3s(input_dir, output_dir, n_ceps=13):
 
     return total_time, file_count
 
-total_time, file_count = save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai', '/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai/PLP')
+total_time, file_count = save_plp_plots_from_mp3s('/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai_segments', '/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai/PLP')
 
 timing_output_file = os.path.join('/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai/PLP', "plp_avg_time.txt")
 

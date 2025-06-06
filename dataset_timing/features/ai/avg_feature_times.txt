@@ -1,0 +1,7 @@
+Processed 14149 files
+
+Mel_Spectrogram: 0.046073 sec (n=14149)
+MFCC: 0.048146 sec (n=14149)
+CQT: 0.137716 sec (n=14149)
+Chromagram: 0.046599 sec (n=14149)
+PLP: 0.902789 seconds

@@ -55,7 +55,7 @@ def extract_features(file_path, mp3_file, sr=22050, n_mfcc=13, output_dir="featu
         plt.savefig(output_path)
         plt.close()
 
-folder_path = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai"
+folder_path = "/vol/bitbucket/sg2121/fypdataset/dataset_large2/normal_data/ai_segments"
 output_dir = "/vol/bitbucket/sg2121/fypdataset/dataset_timing/features/ai"
 mp3_files = [f for f in os.listdir(folder_path) if f.endswith(".mp3")]
 

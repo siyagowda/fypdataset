@@ -40,10 +40,10 @@ for audio_path in input_dir.glob("*.*"):
         duration = end - start
         total_time += duration
         num_files += 1
-        print(f"✅ Transcribed {audio_path.name} in {duration:.2f}s")
+        print(f"Transcribed {audio_path.name} in {duration:.2f}s")
 
     except Exception as e:
-        print(f"❌ Failed to transcribe {audio_path.name}: {e}")
+        print(f"Failed to transcribe {audio_path.name}: {e}")
 
 # Save average transcription time
 if num_files > 0:
@@ -52,6 +52,6 @@ if num_files > 0:
         f.write(f"Device used: {device}\n")
         f.write(f"Transcribed {num_files} files\n")
         f.write(f"Average transcription time: {avg_time:.4f} seconds\n")
-    print(f"\n📄 Average transcription time saved to {timing_file}")
+    print(f"\nAverage transcription time saved to {timing_file}")
 else:
-    print("⚠️ No files were transcribed.")
+    print("No files were transcribed.")
